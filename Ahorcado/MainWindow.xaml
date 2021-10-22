@@ -19,18 +19,15 @@
             </Setter>
         </Style>
         <Style TargetType="{x:Type Button}" x:Key="LetrasButtonStyle" BasedOn="{StaticResource BotonesMenu}">
-            <Setter Property="Height" Value="25"/>
+            <Setter Property="Width" Value="40"/>
             <Setter Property="Margin" Value="5"/>
             <Setter Property="Padding" Value="10,0"/>
         </Style>
         
     </Window.Resources>
    
-    
-    
-    
-    
-    
+    <!--Main XML-->
+   
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition></ColumnDefinition>
@@ -47,23 +44,33 @@
             <Button Style="{StaticResource BotonesMenu}">Nueva Partida</Button>
             <Button Style="{StaticResource BotonesMenu}">Rendirse</Button>
         </StackPanel>
-        <StackPanel Margin="0,10,0,0" Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2" Grid.RowSpan="2">
-            <TextBlock FontSize="25" >Ahorcado</TextBlock>
-            <Viewbox HorizontalAlignment="Left" Height="100">
-                <TextBlock FontFamily="Blackadder ITC"> _ _ _ _ _</TextBlock>
-            </Viewbox>
-            <TextBox Margin="0,15"></TextBox>
-            <!--<WrapPanel x:Name="LetrasWrappanel">
-                <Button Style="{StaticResource LetrasButtonStyle}">A</Button>
-                <Button Style="{StaticResource LetrasButtonStyle}">aaaa</Button>
-                <Button Style="{StaticResource LetrasButtonStyle}">aaaa</Button>
-            </WrapPanel>-->
-        </StackPanel>
+        <DockPanel Margin="0,10,0,0" Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2" Grid.RowSpan="2">
+            <StackPanel DockPanel.Dock="Top">
+                <TextBlock FontSize="25" >Ahorcado</TextBlock>
+                <Viewbox HorizontalAlignment="Left" Height="100">
+                    <TextBlock x:Name="HuecosTextBlock" FontFamily="Book Antiqua"></TextBlock>
+                </Viewbox>
+                <TextBox Margin="0,15,10,0"></TextBox>
+            </StackPanel>
 
-
-
-
-
-
+            <Grid x:Name="letrasGrid" Margin="0,0,10,0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                </Grid.RowDefinitions>
+            </Grid>
+        </DockPanel>
     </Grid>
 </Window>
