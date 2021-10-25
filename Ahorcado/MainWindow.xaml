@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:Ahorcado"
         mc:Ignorable="d"
         Icon="assets/hangman.ico"
-        Title="Ahorcado" Height="450" Width="800">
+        Title="Ahorcado" Height="450" Width="800" MinHeight="390" MinWidth="710">
     <Window.Resources>
         <Style TargetType="{x:Type Button}" x:Key="BotonesMenu">
             <Setter Property="Height" Value="25"/>
@@ -39,17 +39,15 @@
             <RowDefinition></RowDefinition>
             <RowDefinition Height=".3*"></RowDefinition>
         </Grid.RowDefinitions>
-        <Image Source="assets/0.jpg" Grid.Row="0" Grid.Column="0" Grid.RowSpan="2"/>
+        <Image x:Name="ahorcadoImagen" Source="assets/0.jpg" Grid.Row="0" Grid.Column="0" Grid.RowSpan="2"/>
         <StackPanel Orientation="Horizontal" Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="3">
-            <Button Style="{StaticResource BotonesMenu}">Nueva Partida</Button>
-            <Button Style="{StaticResource BotonesMenu}">Rendirse</Button>
+            <Button Style="{StaticResource BotonesMenu}" Click="NuevaPartidaButton_Click" >Nueva Partida</Button>
+            <Button Style="{StaticResource BotonesMenu}" Click="RendirseButton_Click" >Rendirse</Button>
         </StackPanel>
         <DockPanel Margin="0,10,0,0" Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2" Grid.RowSpan="2">
             <StackPanel DockPanel.Dock="Top">
                 <TextBlock FontSize="25" >Ahorcado</TextBlock>
-                <!--<Viewbox HorizontalAlignment="Left" Height="100">-->
                 <StackPanel HorizontalAlignment="Left" Height="100" Orientation="Horizontal" x:Name="huecoStackpanel"></StackPanel>
-                <!--</Viewbox>-->
                 <TextBox Margin="0,15,10,0"></TextBox>
             </StackPanel>
 
