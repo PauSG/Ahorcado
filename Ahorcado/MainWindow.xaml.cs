@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -18,34 +19,18 @@ namespace Ahorcado
     /// <summary>
     /// Lógica de interacción para MainWindow.xaml
     /// </summary>
-    
-    public class Palabra
-    {
-        private readonly string[] palabras = { "Pausito", "Josekar", "Deluxeluisiete", "Pipo" };
-        private string palabraElegida;
 
-        private void ObtenerPalabraAleatoria()
-        {
-            Random palabraAleatoria = new Random();
-            palabraElegida = palabras[palabraAleatoria.Next(0, 3)];
-        }
-        public string GetPalabraElegida()
-        {
-            return palabraElegida;
-        }
-
-
-    }
     public partial class MainWindow : Window
     {
+        //private readonly string[] palabras = { "Pausito", "Josekar", "Deluxeluisiete", "Pipo" };
+        private readonly string[] palabras = { "pipo", "pipo", "pipo", "pipo" };
+        private string palabraElegida;
         public MainWindow()
         {
             InitializeComponent();
 
-            char[] letras = "ABCDEFGHIJKLMNÑOPQRSTUVWXYZ".ToCharArray();
+            char[] letras = "abcdefghijklmnñopqrstuvwxyz".ToCharArray();
             int numLetra = 0;
-            string[] palabras = { "Pausito", "Josekar", "Deluxeluisiete", "Pipo" };
-            string palabraElegida;
 
             for (int fila = 0; fila < 3; fila++)
             {
@@ -56,7 +41,7 @@ namespace Ahorcado
                     Button boton = new Button();
                     Grid.SetRow(boton, fila);
                     Grid.SetColumn(boton, columna);
-                    boton.Click += Button_Click;
+                    //boton.Click += LetraButton_Click;
                     boton.Style = (Style)this.Resources["LetrasButtonStyle"];
                     boton.Content = letras[numLetra];
                     boton.Tag = letras[numLetra];
@@ -66,35 +51,64 @@ namespace Ahorcado
                 }
             }
 
-            palabraElegida = ObtenerPalabraAleatoria(palabras);
-            IniciarJuego(palabraElegida);
+            //palabraElegida = ObtenerPalabraAleatoria();
+            //for (int i = 0; i < palabraElegida.Length; i++)
+            //{
+            //    BarrabajaTextBlock.Text += "_";
+            //}
 
-        }
-        private void IniciarJuego()
-        {
-            for(int i=0; i < Palabra.GetPalabraElegida().Length; i++)
+
+            palabraElegida = ObtenerPalabraAleatoria();
+            for (int i = 0; i < palabraElegida.Length; i++)
             {
-                HuecosTextBlock.Text += "_ ";
+                TextBlock tb = new TextBlock();
+                tb.Text = palabraElegida[i].ToString();
+                tb.Visibility = Visibility.Hidden;
+
+                Viewbox vb = new Viewbox();
+                vb.Child = tb;
+
+                Border b = new Border();
+                b.BorderThickness = new Thickness(0, 0, 0, 3);
+                b.BorderBrush = Brushes.Black;
+                b.Margin = new Thickness(10);
+                b.Width = 30;
+                b.Child = vb;
+
+                huecoStackpanel.Children.Add(b);
             }
 
         }
-        private void ComprobarLetra()
+        public string ObtenerPalabraAleatoria()
         {
-            palabra
-        }
-
-        private string ObtenerPalabraAleatoria(string[] palabras)
-        {
-            
             Random palabraAleatoria = new Random();
-
             return palabras[palabraAleatoria.Next(0, 3)];
         }
+        private void ComprobarLetra(char letra)
+        {
+            IList huecoStackpanellist = huecoStackpanel.Children;
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+            for(int i=0; i < huecoStackpanel.Children.Count; i++)
+            {
+                
+            }
+        }
+
+        private void LetraButton_Click(object sender, RoutedEventArgs e)
         {
             Button letraButton = (Button)sender;
-            ComprobarLetra();
+            char letra = (char)letraButton.Content;
+            ComprobarLetra(letra);
         }
+
+        //private void NuevaPartidaButton_Click(object sender, RoutedEventArgs e)
+        //{
+        //    palabraElegida = ObtenerPalabraAleatoria();
+        //    BarrabajaTextBlock.Text = "";
+        //    for (int i = 0; i < palabraElegida.Length; i++)
+        //    {
+        //        BarrabajaTextBlock.Text += "_";
+        //    }
+        //}
     }
 }
