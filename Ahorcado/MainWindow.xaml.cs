@@ -90,7 +90,7 @@ namespace Ahorcado
 
             for(int i=0; i < huecoStackpanel.Children.Count; i++)
             {
-                
+                huecoStackpanellist[]
             }
         }
 
