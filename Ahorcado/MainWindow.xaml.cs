@@ -51,13 +51,6 @@ namespace Ahorcado
                 }
             }
 
-            //palabraElegida = ObtenerPalabraAleatoria();
-            //for (int i = 0; i < palabraElegida.Length; i++)
-            //{
-            //    BarrabajaTextBlock.Text += "_";
-            //}
-
-
             palabraElegida = ObtenerPalabraAleatoria();
             for (int i = 0; i < palabraElegida.Length; i++)
             {
@@ -76,6 +69,7 @@ namespace Ahorcado
                 b.Child = vb;
 
                 huecoStackpanel.Children.Add(b);
+
             }
 
         }
@@ -88,9 +82,16 @@ namespace Ahorcado
         {
             IList huecoStackpanellist = huecoStackpanel.Children;
 
-            for(int i=0; i < huecoStackpanel.Children.Count; i++)
+            for (int i = 0; i < huecoStackpanel.Children.Count; i++)
             {
-                huecoStackpanellist[]
+                Viewbox viewbox = (Viewbox)huecoStackpanellist[i];
+                TextBlock textblock = viewbox.Child as TextBlock;
+                if (textblock.Text.Equals(letra))
+                {
+                    textblock.Visibility = Visibility.Visible;
+                }
+
+
             }
         }
 
@@ -99,16 +100,36 @@ namespace Ahorcado
             Button letraButton = (Button)sender;
             char letra = (char)letraButton.Content;
             ComprobarLetra(letra);
+            letraButton.IsEnabled = false;
         }
 
-        //private void NuevaPartidaButton_Click(object sender, RoutedEventArgs e)
-        //{
-        //    palabraElegida = ObtenerPalabraAleatoria();
-        //    BarrabajaTextBlock.Text = "";
-        //    for (int i = 0; i < palabraElegida.Length; i++)
-        //    {
-        //        BarrabajaTextBlock.Text += "_";
-        //    }
-        //}
+        private void NuevaPartidaButton_Click(object sender, RoutedEventArgs e)
+        {
+            palabraElegida = ObtenerPalabraAleatoria();
+            for (int i = 0; i < palabraElegida.Length; i++)
+            {
+                TextBlock tb = new TextBlock();
+                tb.Text = palabraElegida[i].ToString();
+                tb.Visibility = Visibility.Hidden;
+
+                Viewbox vb = new Viewbox();
+                vb.Child = tb;
+
+                Border b = new Border();
+                b.BorderThickness = new Thickness(0, 0, 0, 3);
+                b.BorderBrush = Brushes.Black;
+                b.Margin = new Thickness(10);
+                b.Width = 30;
+                b.Child = vb;
+
+                huecoStackpanel.Children.Add(b);
+
+            }
+            for (int i = 0; i < letrasGrid.Children.Count; i++)
+            {
+                Button boton = (Button)letrasGrid.Children[i];
+                boton.IsEnabled = true;
+            }
+        }
     }
 }
