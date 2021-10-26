@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Ahorcado"
         mc:Ignorable="d"
+         KeyDown="Window_KeyDown"
         Icon="assets/hangman.ico"
         Title="Ahorcado" Height="450" Width="800" MinHeight="390" MinWidth="710">
     <Window.Resources>
@@ -22,6 +23,11 @@
             <Setter Property="Width" Value="40"/>
             <Setter Property="Margin" Value="5"/>
             <Setter Property="Padding" Value="10,0"/>
+        </Style>
+        <Style TargetType="{x:Type ScrollViewer}">
+            <Setter Property="VerticalScrollBarVisibility" Value="Hidden"/>
+            <Setter Property="HorizontalScrollBarVisibility" Value="Visible"/>
+            <Setter Property="Margin" Value="0,0,10,0"/>
         </Style>
         
     </Window.Resources>
@@ -47,8 +53,9 @@
         <DockPanel Margin="0,10,0,0" Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2" Grid.RowSpan="2">
             <StackPanel DockPanel.Dock="Top">
                 <TextBlock FontSize="25" >Ahorcado</TextBlock>
-                <StackPanel HorizontalAlignment="Left" Height="100" Orientation="Horizontal" x:Name="huecoStackpanel"></StackPanel>
-                <TextBox Margin="0,15,10,0"></TextBox>
+                <ScrollViewer>
+                    <StackPanel HorizontalAlignment="Left" Height="100" Orientation="Horizontal" x:Name="huecoStackpanel"></StackPanel>
+                </ScrollViewer>
             </StackPanel>
 
             <Grid x:Name="letrasGrid" Margin="0,0,10,0">

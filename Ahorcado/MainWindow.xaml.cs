@@ -22,7 +22,7 @@ namespace Ahorcado
 
     public partial class MainWindow : Window
     {
-        private readonly string[] palabras = { "Pausito", "Josekar", "Deluxeluisiete", "Pipo", "Interfaces", "Electrodomestico", "StackPanel", "Hipopotamo" };
+        private readonly string[] palabras = { "Pausito", "Josekar", "Deluxeluisiete", "Pipo", "Interfaces", "Electrodomestico", "StackPanel", "Hipopotamo", "Ñordo", "Enseñar", "España" };
         private string palabraElegida;
         int fallos, aciertos;
         public MainWindow()
@@ -52,12 +52,12 @@ namespace Ahorcado
             }
 
             IniciarJuego();
-            
+
         }
         public string ObtenerPalabraAleatoria()
         {
             Random palabraAleatoria = new Random();
-            return palabras[palabraAleatoria.Next(0, 3)];
+            return palabras[palabraAleatoria.Next(0, 11)];
         }
         private void ComprobarLetra(string letra)
         {
@@ -69,10 +69,20 @@ namespace Ahorcado
                 TextBlock tb = vb.Child as TextBlock;
                 if (tb.Text.Equals(letra.ToLower()) || tb.Text.Equals(letra.ToUpper()))
                 {
+                    if (tb.Visibility == Visibility.Hidden) aciertos++;
                     tb.Visibility = Visibility.Visible;
                     existe = true;
-                    aciertos++;
-                    if (aciertos == huecoStackpanel.Children.Count) MessageBox.Show("Has Acertado!!", "Resultado");
+                    
+                    if (aciertos == huecoStackpanel.Children.Count)
+                    {
+                        for (int j = 0; j < letrasGrid.Children.Count; j++)
+                        {
+                            Button boton = (Button)letrasGrid.Children[j];
+                            boton.IsEnabled = false;
+                        }
+                        MessageBox.Show("Has Acertado!!", "Resultado", MessageBoxButton.OK, MessageBoxImage.Information);
+                    }
+
                 }
             }
             if (!existe)
@@ -82,9 +92,9 @@ namespace Ahorcado
                 if (fallos == 10)
                 {
                     AcabarJuego();
-                    MessageBox.Show("Has Fallado demasiadas veces, intentalo de nuevo", "RESULTADO");
+                    MessageBox.Show("Has Fallado demasiadas veces, intentalo de nuevo", "RESULTADO", MessageBoxButton.OK, MessageBoxImage.Information);
                 }
-            }  
+            }
         }
 
         private void cambiarImagen(int fallos)
@@ -99,6 +109,28 @@ namespace Ahorcado
             letraButton.IsEnabled = false;
             ComprobarLetra(letra.ToString());
 
+        }
+        private void Window_KeyDown(object sender, KeyEventArgs e)
+        {
+            Button bÑ = letrasGrid.Children[14] as Button;
+            string letraÑ = bÑ.Content.ToString();
+
+            if (e.Key.ToString().Equals("Oem3"))
+            {
+                ComprobarLetra(letraÑ);
+                bÑ.IsEnabled = false;
+            }
+            else
+            {
+                ComprobarLetra(e.Key.ToString());
+            }
+            
+            for(int i=0; i<letrasGrid.Children.Count;i++)
+            {
+                Button boton = letrasGrid.Children[i] as Button;
+                
+                if (e.Key.ToString().ToUpper().Equals(boton.Tag.ToString())) boton.IsEnabled=false;
+            }
         }
         private void IniciarJuego()
         {
@@ -135,7 +167,7 @@ namespace Ahorcado
                 Button boton = (Button)letrasGrid.Children[i];
                 boton.IsEnabled = true;
             }
-            MessageBox.Show("Has iniciado una nueva partida", "RESULTADO");
+            MessageBox.Show("Has iniciado una nueva partida", "RESULTADO", MessageBoxButton.OK, MessageBoxImage.Information);
         }
         private void AcabarJuego()
         {
@@ -156,10 +188,12 @@ namespace Ahorcado
 
             }
         }
+
+
         private void RendirseButton_Click(object sender, RoutedEventArgs e)
         {
             AcabarJuego();
-            MessageBox.Show("Te has rendido", "RESULTADO");
+            MessageBox.Show("Te has rendido", "RESULTADO", MessageBoxButton.OK, MessageBoxImage.Information);
         }
     }
 }
