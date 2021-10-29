@@ -22,7 +22,7 @@ namespace Ahorcado
 
     public partial class MainWindow : Window
     {
-        private readonly string[] palabras = { "Pausito", "Josekar", "Deluxeluisiete", "Pipo", "Interfaces", "Electrodomestico", "StackPanel", "Hipopotamo", "Ñoño", "Enseñar", "España" };
+        private readonly string[] palabras = { "Pausito", "Josecar", "Deluxeluisiete", "Pipo", "Interfaces", "Electrodomestico", "StackPanel", "Hipopotamo", "Ñoño", "Enseñar", "España" };
         private string palabraElegida;
         int fallos, aciertos;
         public MainWindow()
@@ -88,7 +88,6 @@ namespace Ahorcado
             if (!existe)
             {
                 fallos++;
-                MessageBox.Show(fallos.ToString());
                 cambiarImagen(fallos);
             }
             if (fallos == 10)
@@ -116,14 +115,10 @@ namespace Ahorcado
         }
         private void Window_KeyDown(object sender, KeyEventArgs e)
         {
-            //IList<Key> teclasUsadas;
-            //teclasUsadas.Add(e);
+
             Button bÑ = letrasGrid.Children[14] as Button;
             string letraÑ = bÑ.Content.ToString();
-            bool teclaActiva = true;
 
-            Button btn = (Button)letrasGrid.Children[j];
-            if (btn.IsEnabled == false) teclaActiva = false;
 
             if (e.Key.ToString().Equals("Oem3"))
             {
