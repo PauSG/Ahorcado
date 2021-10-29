@@ -61,7 +61,7 @@ namespace Ahorcado
         }
         private void ComprobarLetra(string letra)
         {
-            bool existe = false, sumaFallos = false;
+            bool existe = false;
             for (int i = 0; i < huecoStackpanel.Children.Count; i++)
             {
                 Border b = (Border)huecoStackpanel.Children[i];
@@ -88,6 +88,7 @@ namespace Ahorcado
             if (!existe)
             {
                 fallos++;
+                MessageBox.Show(fallos.ToString());
                 cambiarImagen(fallos);
             }
             if (fallos == 10)
@@ -115,8 +116,14 @@ namespace Ahorcado
         }
         private void Window_KeyDown(object sender, KeyEventArgs e)
         {
+            //IList<Key> teclasUsadas;
+            //teclasUsadas.Add(e);
             Button bÑ = letrasGrid.Children[14] as Button;
             string letraÑ = bÑ.Content.ToString();
+            bool teclaActiva = true;
+
+            Button btn = (Button)letrasGrid.Children[j];
+            if (btn.IsEnabled == false) teclaActiva = false;
 
             if (e.Key.ToString().Equals("Oem3"))
             {
@@ -134,6 +141,7 @@ namespace Ahorcado
 
                 if (e.Key.ToString().ToUpper().Equals(boton.Tag.ToString())) boton.IsEnabled = false;
             }
+
         }
         private void IniciarJuego()
         {
