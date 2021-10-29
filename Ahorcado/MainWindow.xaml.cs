@@ -22,7 +22,7 @@ namespace Ahorcado
 
     public partial class MainWindow : Window
     {
-        private readonly string[] palabras = { "Pausito", "Josekar", "Deluxeluisiete", "Pipo", "Interfaces", "Electrodomestico", "StackPanel", "Hipopotamo", "Ñordo", "Enseñar", "España" };
+        private readonly string[] palabras = { "Pausito", "Josekar", "Deluxeluisiete", "Pipo", "Interfaces", "Electrodomestico", "StackPanel", "Hipopotamo", "Ñoño", "Enseñar", "España" };
         private string palabraElegida;
         int fallos, aciertos;
         public MainWindow()
@@ -61,7 +61,7 @@ namespace Ahorcado
         }
         private void ComprobarLetra(string letra)
         {
-            bool existe = false;
+            bool existe = false, sumaFallos = false;
             for (int i = 0; i < huecoStackpanel.Children.Count; i++)
             {
                 Border b = (Border)huecoStackpanel.Children[i];
@@ -72,7 +72,7 @@ namespace Ahorcado
                     if (tb.Visibility == Visibility.Hidden) aciertos++;
                     tb.Visibility = Visibility.Visible;
                     existe = true;
-                    
+
                     if (aciertos == huecoStackpanel.Children.Count)
                     {
                         for (int j = 0; j < letrasGrid.Children.Count; j++)
@@ -82,20 +82,23 @@ namespace Ahorcado
                         }
                         MessageBox.Show("Has Acertado!!", "Resultado", MessageBoxButton.OK, MessageBoxImage.Information);
                     }
-
                 }
             }
+
             if (!existe)
             {
                 fallos++;
                 cambiarImagen(fallos);
-                if (fallos == 10)
-                {
-                    AcabarJuego();
-                    MessageBox.Show("Has Fallado demasiadas veces, intentalo de nuevo", "RESULTADO", MessageBoxButton.OK, MessageBoxImage.Information);
-                }
+            }
+            if (fallos == 10)
+            {
+                AcabarJuego();
+                MessageBox.Show("Has Fallado demasiadas veces, intentalo de nuevo", "RESULTADO", MessageBoxButton.OK, MessageBoxImage.Information);
             }
         }
+
+
+
 
         private void cambiarImagen(int fallos)
         {
@@ -124,12 +127,12 @@ namespace Ahorcado
             {
                 ComprobarLetra(e.Key.ToString());
             }
-            
-            for(int i=0; i<letrasGrid.Children.Count;i++)
+
+            for (int i = 0; i < letrasGrid.Children.Count; i++)
             {
                 Button boton = letrasGrid.Children[i] as Button;
-                
-                if (e.Key.ToString().ToUpper().Equals(boton.Tag.ToString())) boton.IsEnabled=false;
+
+                if (e.Key.ToString().ToUpper().Equals(boton.Tag.ToString())) boton.IsEnabled = false;
             }
         }
         private void IniciarJuego()
